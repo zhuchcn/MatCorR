@@ -96,6 +96,7 @@ corTest = function(x, y, method, ...){
 #'
 #' @export
 #' @importFrom plyr "adply"
+#' @importFrom tibble "column_to_rownames"
 #' @author Chenghao Zhu
 MatCor = function(X, Y, method, adjust.method = "BH", ...){
     apply(X, 1, function(x){
@@ -103,7 +104,7 @@ MatCor = function(X, Y, method, adjust.method = "BH", ...){
             corTest(x=x, y=y, method = method, ...)
         }) %>%
             mutate(padj = p.adjust(pval, method = adjust.method)) %>%
-            column_to_rownames("X1")
+            tibble::column_to_rownames("X1")
     })
 }
 
